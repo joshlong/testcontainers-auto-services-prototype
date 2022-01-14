@@ -1,24 +1,14 @@
 package com.example.tcm;
 
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import javax.annotation.Resource;
 
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -37,12 +27,11 @@ public class TcmApplication {
                 .build();
     }
 
-
     @Bean
     ApplicationRunner applicationRunner(CustomerRepository repository) {
-        return args -> Flux.just("Oleg", "Josh", "Sergei", "Richard")
+        return args -> Flux.just("Oleg", "Josh", "Michelle", "Sergei", "Richard", "Sam", "Madhura")
                 .map(name -> new Customer(null, name))
-                .flatMap(c -> repository.save(c))
+                .flatMap(repository::save)
                 .thenMany(repository.findAll())
                 .subscribe(System.out::println);
     }
@@ -50,6 +39,7 @@ public class TcmApplication {
 
 
 interface CustomerRepository extends ReactiveCrudRepository<Customer, Integer> {
+
 }
 
 record Customer(@Id String id, String name) {

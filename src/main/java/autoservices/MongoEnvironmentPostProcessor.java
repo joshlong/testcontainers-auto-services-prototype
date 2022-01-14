@@ -14,8 +14,9 @@ public class MongoEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        if (environment.getProperty("spring.data.mongodb.uri") == null) {
-            var mongoDBContainer = new MongoDBContainer("mongo:5.0.3");
+        if ( environment.getProperty("spring.data.mongodb.uri") == null) {
+            var mongoDBContainer = new MongoDBContainer("mongo:5.0.3") //
+                    .withReuse(true);
             Startables.deepStart(mongoDBContainer).join();
             environment.getPropertySources().addLast(
                     new MapPropertySource("testcontainers",
