@@ -1,0 +1,12 @@
+<html>
+<body>
+<script>
+    window.addEventListener('load', function (e) {
+        var ws = new WebSocket('ws://localhost:8080/ws/profiles');
+        ws.addEventListener('message', function (message) {
+            console.log('new profile: ' + message.data)
+        });
+    })
+</script>
+</body>
+</html>
