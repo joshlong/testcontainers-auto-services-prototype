@@ -7,7 +7,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Map;
@@ -18,7 +17,7 @@ public class TestcontainersSpringApplicationRunListener implements SpringApplica
     public TestcontainersSpringApplicationRunListener(SpringApplication app, String[] args) {
         app.addInitializers(configurableApplicationContext -> {
             var environment = configurableApplicationContext.getEnvironment();
-            environment.getPropertySources().addLast(new MongoDBPropertySource(environment));
+//            environment.getPropertySources().addLast(new MongoDBPropertySource(environment));
             environment.getPropertySources().addLast(new PostgreSQLPropertySource(environment));
         });
     }
@@ -53,7 +52,7 @@ public class TestcontainersSpringApplicationRunListener implements SpringApplica
         }
     }
 
-    private static class MongoDBPropertySource extends ContainerPropertySource<MongoDBContainer> {
+  /*  private static class MongoDBPropertySource extends ContainerPropertySource<MongoDBContainer> {
         private final Environment environment;
 
         public MongoDBPropertySource(Environment environment) {
@@ -70,7 +69,7 @@ public class TestcontainersSpringApplicationRunListener implements SpringApplica
             );
         }
     }
-
+*/
     /**
      * Base class for Testcontainers-based property sources
      */
