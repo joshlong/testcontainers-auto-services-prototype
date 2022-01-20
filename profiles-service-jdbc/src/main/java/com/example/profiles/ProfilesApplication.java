@@ -1,6 +1,6 @@
 package com.example.profiles;
 
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.annotation.Id;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+
 @SpringBootApplication
 public class ProfilesApplication {
 
@@ -44,7 +44,6 @@ class ProfileRestController {
 
     @PostMapping
     ResponseEntity<Profile> create(@RequestBody Profile profile) {
-        var saved = this.repository.save(profile);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(this.repository.save(profile));
     }
 }
