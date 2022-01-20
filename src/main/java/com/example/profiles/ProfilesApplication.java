@@ -20,7 +20,7 @@ public class ProfilesApplication {
 
     @Bean
     ApplicationRunner applicationRunner(CustomerRepository repository) {
-        return args -> Stream.of("Sergei", "Olga", "Oliver", "Jens", "Josh")
+        return args -> Stream.of( "Sergei", "Olga", "Madhura",  "Oliver", "Jens", "Josh")
                 .map(c -> new Customer(null, c))
                 .map(repository::save)
                 .forEach(System.out::println);
